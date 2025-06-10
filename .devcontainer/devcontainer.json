@@ -21,8 +21,8 @@
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
   	],
 	"postCreateCommand": {
-		"q-install": "curl --proto '=https' --tlsv1.2 -sSf 'https://desktop-release.q.us-east-1.amazonaws.com/latest/q-aarch64-linux.zip' -o 'q.zip' && unzip q.zip && sudo mv ./q/bin/q /usr/local/bin/ && sudo mv ./q/bin/qchat /usr/local/bin/ && sudo mv ./q/bin/qterm /usr/local/bin/ && rm -rf q.zip q && rm -rf ./q",
-		"set alias for qchat": "echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.bashr  && echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.bash_profile && echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.zshrc && echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.profile"
+		"q-install": "ARCH=$(uname -m); if [ \"$ARCH\" = \"aarch64\" ] || [ \"$ARCH\" = \"arm64\" ]; then DOWNLOAD_URL='https://desktop-release.q.us-east-1.amazonaws.com/latest/q-aarch64-linux.zip'; else DOWNLOAD_URL='https://desktop-release.q.us-east-1.amazonaws.com/latest/q-x86_64-linux.zip'; fi && curl --proto '=https' --tlsv1.2 -sSf \"$DOWNLOAD_URL\" -o 'q.zip' && unzip q.zip && sudo mv ./q/bin/q /usr/local/bin/ && sudo mv ./q/bin/qchat /usr/local/bin/ && sudo mv ./q/bin/qterm /usr/local/bin/ && rm -rf q.zip q && rm -rf ./q",
+		"set alias for qchat": "echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.bashrc  && echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.bash_profile && echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.zshrc && echo 'alias q=\"/usr/local/bin/qchat\"' >> ~/.profile"
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
